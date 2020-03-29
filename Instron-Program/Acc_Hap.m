@@ -1,12 +1,26 @@
-TSSeg_s=[300,300,200,1000,30];
-NTSSeg_s=[600,50,200,1000,20];
-TSSeg_d=10;
+% File name: Acc_Hap.m
+% Function describe: time sequence segmentation for the haptic data and the acceleratino data
+% Input file: 1Hap&Acc_pre.txt
+%       9 double numbers in each line and n lines in total. 
+%       The first 6 numbers are the tactile data and the last 3 numbers are the x-axis, y-axis, z-axis acceleration data
+% Output file: 1Hap_Readabledata.txt
+%       m lines in total. Each line represents one data point. 
+%       For each line, terrain type + n + 6*n haptic data
+%Output file: 2Acceleration.txt
+%       m lines in total. Each line represents one data point. 
+%       For each line, terrain type + n + 3*n acceleration data
 
-% TSSeg_s=[100,100,100,100,30];
+%threthold for terrain A
+TSSeg_s=[300,300,200,1000,30];              %threthold for the segmentatino for the sum of the tactile data
+NTSSeg_s=[600,50,200,1000,20];              %threthold for the segmentation for the maximum of the tactile data
+TSSeg_d=10;                                 %threthold
+
+% thrdthold for terrain B
+% TSSeg_s=[100,100,100,100,30];             
 % NTSSeg_s=[200,200,200,100,20];
 % TSSeg_d=10;
 
-% 
+% thrdthold for terrain C
 % TSSeg_s=[6,10,4,10,3];
 % NTSSeg_s=[5,5,20,5,2];
 % TSSeg_d=4;
@@ -37,6 +51,7 @@ in = 0;
 fl=0;
 mm=zeros (1,20000);
 
+%% manual segmentation
 % aaa=1;
 % bbb=1980;
 % for i=aaa:fix((bbb-aaa)/24):bbb
@@ -45,6 +60,7 @@ mm=zeros (1,20000);
 %     w2f(be,en);
 % end
 
+%% auto segmentation
 for iii= 1: data_size(1)
     su(i)=0;
     ma(i)=-100; 
@@ -158,9 +174,14 @@ fprintf (facc,'\n\n\n\n\n');
 fclose (facc);
 
 
+
+
+% function name: w2f
+% function describe: print the tactile data and acceleration data in the standard format to files
+
 function [] = w2f(be, en)
     global fhap;
-        global facc;
+    global facc;
     global terrain_type;
     global data;
     a=1
@@ -173,9 +194,6 @@ function [] = w2f(be, en)
         end
     end
 	fprintf (fhap,'\n');
-    
-    
-    
 	fprintf (facc,'%d ',terrain_type);
     fprintf (facc,'%d ',en-be+1);
 	for i=be:en
@@ -183,6 +201,5 @@ function [] = w2f(be, en)
             fprintf (facc,'%f ',data(i,i1+6));
         end
     end
-	fprintf (facc,'\n');
-    
+	fprintf (facc,'\n');    
 end

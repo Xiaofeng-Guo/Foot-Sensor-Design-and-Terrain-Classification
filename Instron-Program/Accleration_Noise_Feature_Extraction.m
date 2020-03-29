@@ -1,8 +1,15 @@
+%File name: Acceleration_Noise_Feature_Extraction
+%Function describe: feature extraction for acceleration noise data
+%Input file: Acceleration_noise
+%       Each line represents one data point. 
+%       For each line, terrain type(useless) + n + 3*n acceleration data. File ends with terrain type = -1
+%Output file: Noise_Acceleration_feature
+%       Each line represents m features of one data point. 
+
+
+
 clc;clear;
-
-
 facc = fopen('Acceleration_noise.txt','r');
-
 i=0;
 while 1
     temp= fscanf (facc,'%d',1);

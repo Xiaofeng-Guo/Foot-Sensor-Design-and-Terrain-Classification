@@ -1,6 +1,14 @@
+%File name: Acceleration_Feature_Extraction
+%Function describe: feature extraction for acceleration data
+%Input file: Acceleration_data
+%       Each line represents one data point. 
+%       For each line, terrain type + n + 3*n acceleration data. File ends with terrain type = -1
+%Output file: Acceleration_feature
+%       Each line represents m features of one data point. 
+%Output file: 'Acceleration_label
+%       Each line represents the terrain type of corresponding data point
+
 clc;clear;
-
-
 facc = fopen('Acceleration_data.txt','r');
 
 i=0;
@@ -20,7 +28,7 @@ while 1
 end
 
 num_data = i;
-fe=[];
+fe=[];                      % feature varible
 for jj=1:3
  for j=1:num_data
     p=acc_data{j}{jj};

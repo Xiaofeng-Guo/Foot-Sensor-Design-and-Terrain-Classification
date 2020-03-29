@@ -1,3 +1,6 @@
+
+
+
 clc;clear;
 load ('terrain07_group5_duration0p5s_3.mat');
 data=data(490:end,:);
